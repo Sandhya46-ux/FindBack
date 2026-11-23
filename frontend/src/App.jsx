@@ -1,57 +1,31 @@
-import { useState } from 'react'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import HowItWorks from './components/HowItWorks'
-import Features from './components/Features'
-import TrustSecurity from './components/TrustSecurity'
-import Footer from './components/Footer'
-import ActionModal from './components/ActionModal'
+import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import LandingPage from './pages/LandingPage'
+import StudentLogin from './pages/StudentLogin'
+import StudentRegister from './pages/StudentRegister'
+import StaffLogin from './pages/StaffLogin'
+import ForgotPassword from './pages/ForgotPassword'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
 
 export default function App() {
-  const [modalState, setModalState] = useState({
-    isOpen: false,
-    actionTitle: '',
-  })
-
-  const openActionModal = (actionTitle) => {
-    setModalState({
-      isOpen: true,
-      actionTitle,
-    })
-  }
-
-  const closeModal = () => {
-    setModalState({
-      isOpen: false,
-      actionTitle: '',
-    })
-  }
-
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#101B35] flex flex-col font-sans selection:bg-[#0D9488]/20 selection:text-[#101B35] antialiased">
-      {/* Top Navigation */}
-      <Navbar onActionClick={openActionModal} />
-
-      {/* Main Content Sections */}
-      <main className="flex-grow">
-        <Hero
-          onReportLost={() => openActionModal('Report Lost Item')}
-          onReportFound={() => openActionModal('Report Found Item')}
-        />
-        <HowItWorks />
-        <Features />
-        <TrustSecurity />
-      </main>
-
-      {/* Footer */}
-      <Footer onActionClick={openActionModal} />
-
-      {/* Milestone 1 Informative Dialog */}
-      <ActionModal
-        isOpen={modalState.isOpen}
-        onClose={closeModal}
-        actionTitle={modalState.actionTitle}
-      />
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<StudentLogin />} />
+        <Route path="/register" element={<StudentRegister />} />
+        <Route path="/staff-login" element={<StaffLogin />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }

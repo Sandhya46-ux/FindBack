@@ -1,15 +1,8 @@
+import { Link } from 'react-router-dom'
 import { X, ShieldCheck, ArrowRight, HelpCircle } from 'lucide-react'
 
 export default function ActionModal({ isOpen, onClose, actionTitle }) {
   if (!isOpen) return null
-
-  const handleLearnMore = () => {
-    onClose()
-    const element = document.querySelector('#how-it-works')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   return (
     <div
@@ -31,7 +24,7 @@ export default function ActionModal({ isOpen, onClose, actionTitle }) {
                 FindBack Campus Network
               </h3>
               <p className="text-[11px] text-slate-400">
-                Milestone 1 Preview
+                Action Authentication Gateway
               </p>
             </div>
           </div>
@@ -53,19 +46,19 @@ export default function ActionModal({ isOpen, onClose, actionTitle }) {
           </div>
 
           <p className="text-sm text-[#101B35] font-semibold leading-snug">
-            You are viewing the FindBack Public Landing Page (Milestone 1).
+            To submit or manage campus item reports, please sign in with your verified college credentials.
           </p>
 
           <p className="text-sm text-[#64748B] leading-relaxed">
-            The reporting forms, student authentication system, and administrative desk recovery dashboards will be activated in the upcoming development milestones.
+            FindBack protects student property by ensuring all reports and potential match alerts are linked to authorized university community accounts.
           </p>
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 text-xs text-[#64748B]">
-            <div className="font-semibold text-[#101B35]">Current Public Prototype Features:</div>
+            <div className="font-semibold text-[#101B35]">Access Pathways:</div>
             <ul className="list-disc list-inside space-y-1 text-slate-600">
-              <li>Institutional recovery process overview (REPORT → MATCH → NOTIFY → RECOVER)</li>
-              <li>Intelligent matching engine architecture and trust principles</li>
-              <li>Staff-managed verification and privacy safeguards</li>
+              <li>Existing students: Sign in with your college email.</li>
+              <li>New students: Register your college account and student ID.</li>
+              <li>Desk staff: Access the dedicated Staff Desk Portal.</li>
             </ul>
           </div>
         </div>
@@ -77,16 +70,23 @@ export default function ActionModal({ isOpen, onClose, actionTitle }) {
             onClick={onClose}
             className="w-full sm:w-auto px-4 py-2 text-xs font-semibold text-[#101B35] bg-white hover:bg-slate-100 border border-slate-300 rounded-lg transition-colors"
           >
-            Close
+            Cancel
           </button>
-          <button
-            type="button"
-            onClick={handleLearnMore}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#0D9488] hover:bg-[#0F766E] rounded-lg shadow-sm transition-colors"
+          <Link
+            to="/register"
+            onClick={onClose}
+            className="w-full sm:w-auto px-4 py-2 text-xs font-semibold text-[#101B35] bg-slate-200 hover:bg-slate-300 rounded-lg transition-colors text-center"
           >
-            <span>Explore How It Works</span>
+            Register
+          </Link>
+          <Link
+            to="/login"
+            onClick={onClose}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#0D9488] hover:bg-[#0F766E] rounded-lg shadow-sm transition-colors text-center"
+          >
+            <span>Sign In to Continue</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          </Link>
         </div>
 
       </div>
